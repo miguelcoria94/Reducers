@@ -43,3 +43,25 @@ Additional case claused can be added to update the reducer to handle the followi
 
     * "SELL_OUT" - Someone bought the whole inventory of fruit! Return an empty array
 
+```js
+    const fruitReducer = (state=[], action) => {
+        switch (action.type) {
+            case'ADD_FRUIT':
+                return [...state, action.fruit];
+            case'ADD_FRUITS':
+                return [...state, action.fruits];
+            case'SELL_FRUIT':
+                const index = state.indexOf(action.fruit);
+                if(index !== -1){
+                    //remove the first instance of action.fruit
+                    return [...state.slice(0, index), ...state.slice(index + 1)];
+                }
+                return state; //if action.fruit is not a in state, return previous state
+            case 'SELL_OUT':
+                return [];
+            default:
+                return state;
+
+        }
+    }
+```
