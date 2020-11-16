@@ -1,6 +1,6 @@
 <h1 align="center">
 Reducers
-<h1>
+</h1>
 
 The Redux store had a reducer function for updating its state.
 
@@ -8,7 +8,7 @@ The reducer function receives the current state and an action, updates the state
 
 <h1 align="center">
 Updating the reducer to handle additional action types
-<h1>
+</h1>
 
 The reducer from Fruit Stand App;
 
@@ -64,4 +64,31 @@ Additional case claused can be added to update the reducer to handle the followi
 
         }
     }
+```
+
+<h1 align="center">
+Reviewing how Array.slice works
+</h1>
+
+```js
+    [...state.slice(0, index), ...state.slice(index + 1)]
+```
+
+The Array.slice method return a new array containing a shallow copy of the array elements indicated by the start and end args.
+
+The start arguement is the index of the first element to include and the end argument is the index of the element to include up to but not including.
+
+If the end arguement isnt provided, all the array elements up to the end of the array will be included.
+
+The original array will not be modified.
+
+By combining calls to the Array.slice method into a new array, a copy of an array can be created that omits an element at a specific index (index):
+
+    * state.slice(0, index) - returns a new array containing the elements starting from index 0 up to index
+
+    * state.slice(index + 1) - returns a new array containing the elements starting from index + 1(one past the index to omit the element at index) up through the last element in the array.
+
+Then the spread syntax is used to spread the elements in the slices into a new array.
+
+```js
 ```
