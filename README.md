@@ -91,4 +91,54 @@ By combining calls to the Array.slice method into a new array, a copy of an arra
 Then the spread syntax is used to spread the elements in the slices into a new array.
 
 ```js
+    const fruits = ['apple', 'apple', 'orange', 'banana', 'watermelon'];
+
+    // The index of the 'orange' element is 2.
+    const index = fruits.indexOf('orange');
+
+    // `...fruits.slice(0, index)` returns the array ['apple', 'apple']
+    // `...fruits.slice(index + 1)` returns the array ['banana', 'watermelon']
+    // The spread syntax combines the two array slices into the array
+    // ['apple', 'apple', 'banana', 'watermelon']
+    const newFruits = [...fruits.slice(0, index), ...fruits.slice(index + 1)];
 ```
+
+This approach to removing an element from an array is just one way to complete the operation without modifying or mutating the orginal array.
+
+<h1 align="center">
+Avoiding state mutations
+</h1>
+
+Inside a Redux reducer, you must never mutate its arguments (state and action).
+
+Your reducer must return a new object if the state changes.
+
+Here's an example of a bad reducer which mutates the previous state.
+
+```js
+    const badReducer = (state = {count: 0}, action) => {
+        switch (action.type){
+            case 'INCREMENT_COUNTER':
+                state.count++;
+                return state;
+            default:
+                return state;
+        }
+    }
+```
+
+and here's an example of a good reducer which uses Object.assign to create a shallow duplicate of the previous state:
+
+```js
+    const goodReducer = (state = {count: 0}, action) => {
+        switch (action.type){
+            case 'INCREMENT_COUNTER':
+                const nextState = Object.assign({}, state);
+                nextState.count++
+                return nextState;
+            default:
+                return state;
+        }
+    }
+```
+
